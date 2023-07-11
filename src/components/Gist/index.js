@@ -65,8 +65,8 @@ const TimeStamp = styled.div`
 
 const Description = styled.div`
   padding: 15px 0;
+  overflow-wrap: break-word;
 `;
-
 
 const FileStack = styled.div`
   display: flex;

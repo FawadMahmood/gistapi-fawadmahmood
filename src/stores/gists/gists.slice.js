@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchGists } from './gists.actions';
+import { fetchGists, fetchGistsByUsername  } from './gists.actions';
 
 const gistsSlice = createSlice({
   name: 'gists',
@@ -19,6 +19,17 @@ const gistsSlice = createSlice({
         state.gists = action.payload;
       })
       .addCase(fetchGists.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchGistsByUsername.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchGistsByUsername.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.gists = action.payload;
+      })
+      .addCase(fetchGistsByUsername.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

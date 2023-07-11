@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Octicon from 'react-octicon'
 import Search from './Search';
+import { useDebounce } from '../hooks';
+import { fetchGistsByUsername, fetchGists } from '.././stores/gists';
+import { useDispatch } from 'react-redux';
+ 
 
-function Header() {
+function Header({ onSearchText }) {
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchUsernameTerm] = useState('');
+  const debouncedTerm = useDebounce(searchTerm, 300);
+
+  useEffect(()=>{
+    if(debouncedTerm){
+      dispatch(fetchGistsByUsername(debouncedTerm));
+    }else if(debouncedTerm !== undefined && debouncedTerm === ""){
+      dispatch(fetchGists());
+    }
+  },[ debouncedTerm ]);
+
+
   return (
     <Wrapper>
       <Octicon name="mark-github" mega/>
-      <Search />
+      <Search onSearchText={setSearchUsernameTerm} />
     </Wrapper>
   )
 }
@@ -23,4 +40,4 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default Header
+export default Header;
