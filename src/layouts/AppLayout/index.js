@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container } from '../../components/Container';
 
 export const AppLayout = ({ Header, children }) => (
     <>
       {Header}
-      {children}
+      <Container>{children}</Container>
     </>
 );
 
