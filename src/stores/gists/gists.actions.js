@@ -7,8 +7,7 @@ export const fetchGists = createAsyncThunk(
   async () => {
     try {
       const gists = await getPublicGists();
-      console.log('gists/fetchGists called', gists);
-      return [];
+      return gists.data;
     } catch (error) {
       throw new Error('Failed to fetch gists.');
     }
