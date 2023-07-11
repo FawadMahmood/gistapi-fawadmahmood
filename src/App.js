@@ -1,12 +1,18 @@
 
+import React, { useEffect } from 'react';
 import styled from 'styled-components'
 import Header from "./components/Header";
 import GlobalStyles from "./GlobalStyle";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchGists } from './stores/gists';
+import { AppLayout } from './layouts';
 
 const App = () => {
   return (
     <Wrapper className="App" data-testid="app">
-      <Header />
+      <AppLayout Header={<Header />}>
+        
+      </AppLayout>
       <GlobalStyles />
     </Wrapper>
   );
