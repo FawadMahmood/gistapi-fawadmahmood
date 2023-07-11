@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import Octicon from 'react-octicon'
 
-const Search = () => {
+const Search = ({ onSearchText }) => {
+  const [text, setText] = useState('');
+
+  const onChangeText = useCallback(({ target: { value } })=>{
+    setText(value);
+    onSearchText?.(value);
+  },[]);
+
+
   return (
     <Wrapper>
       <InputBox>
       <Octicon name="search" />
-      <Input placeholder="Search Gists for the username"/>
+      <Input 
+        value={text} 
+        onChange={onChangeText} 
+        placeholder="Search Gists for the username"
+      />
       </InputBox>
     </Wrapper>
   )
